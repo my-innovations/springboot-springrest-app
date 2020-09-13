@@ -1,0 +1,364 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.punya</groupId>
+  <artifactId>springboot-springrest-app</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>Spring Boot REST API Example without DB connection</name>
+  <description>Spring Boot REST API Example without DB connection</description>
+  
+  <!-- Default packaging is jar  -->
+  <!-- Way-1 , it's working => java -jar target/springboot_springREST_app00_without_db_connectivity_using_anno_and_anno_based_cfgn-0.0.1-SNAPSHOT.jar -->
+  <!-- <packaging>jar</packaging> -->
+  
+  <!-- Way-2 , it's working => java -jar target/springboot_springREST_app00_without_db_connectivity_using_anno_and_anno_based_cfgn-0.0.1-SNAPSHOT.war -->
+  <!-- way-2 , if we prepare .war Then to deploy to external tomcat server then follow some procedures -->
+  <!-- <packaging>war</packaging> -->
+  
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<!-- <version>1.0.1.RELEASE</version> -->
+		<!-- <version>1.1.1.RELEASE</version> -->
+		<!-- <version>1.2.1.RELEASE</version> -->
+		<!-- <version>1.3.1.RELEASE</version> -->
+		<!-- <version>1.4.1.RELEASE</version> -->
+		<!-- <version>1.5.4.RELEASE</version> -->
+		<!-- <version>2.0.0.RELEASE</version> -->
+		<version>2.1.2.RELEASE</version>
+		<relativePath/>
+	</parent>
+	
+	<!-- <dependencyManagement>
+	<dependencies>
+	<dependency>
+	</dependency>
+	</dependencies>
+	</dependencyManagement> -->
+	
+	 <!-- <repositories>
+        <repository>
+            <id>Local-lib</id>
+            <url>file://${project.basedir}/lib</url>
+        </repository>
+    </repositories> -->
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
+		<sonar-maven-plugin.version>2.4</sonar-maven-plugin.version>
+		<!-- Required for war packaging -->
+		<!-- <start-class>com.springboot.SpringBootRestfulJarApp</start-class> -->
+	</properties>
+
+	<dependencies>
+	
+	<!-- ################################################################################################################################################################### -->
+		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
+	
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+			<!-- comment this when we are not using in build standalone tomcat server -->
+			<!-- <exclusions>
+					<exclusion>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-starter-tomcat</artifactId>
+					</exclusion>
+			</exclusions> -->
+		</dependency>
+		
+		<!-- Note: When we are deploying this war to external server like tomcat or jboss server, add the below dependency -->
+		<!-- <dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-tomcat</artifactId>
+				<scope>provided</scope>
+		</dependency> -->
+		
+		<!-- If you want to use embedded jetty server instead of embedded standalone tomcat server -->
+		<!-- <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jetty</artifactId>
+			<scope>provided</scope>
+		</dependency> -->
+		
+		<!-- ################################################################################################################################################################### -->
+		
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-xml -->
+		<!-- To see REST responses in xml format -->
+		<!-- <dependency>
+		    <groupId>com.fasterxml.jackson.dataformat</groupId>
+		    <artifactId>jackson-dataformat-xml</artifactId>
+		</dependency> -->
+		
+		<!-- ################################################################################################################################################################### -->
+		
+		<!-- Required for form or input data validation, This is coming as default with web dependency -->
+		<!-- <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency> -->
+		
+		<!-- ################################################################################################################################################################### -->
+		<!-- It will be added by default to build path when we add starter web dependency -->
+		<!-- <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-logging</artifactId>
+		</dependency> -->
+		
+		<!-- ################################################################################################################################################################### -->
+		<!-- Required for DB connectivity -->
+		<!-- Using Tomcat JDBC CP -->
+		<!-- <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jdbc</artifactId>
+			<exclusions>
+		        <exclusion>
+				        <groupId>org.apache.tomcat</groupId>
+				        <artifactId>tomcat-jdbc</artifactId>
+		     	</exclusion>
+		     	 <exclusion>
+				        <groupId>com.zaxxer</groupId>
+				        <artifactId>HikariCP</artifactId>
+		     	</exclusion> 
+    		</exclusions>
+		</dependency> -->
+		
+		<!-- ################################################################################################################################################################### -->
+		<!--  HikariCP CP-->
+		<!-- <dependency>
+		    <groupId>com.zaxxer</groupId>
+		    <artifactId>HikariCP</artifactId>
+		</dependency> -->
+		<!-- OR -->
+		<!-- Apache DBCP CP -->
+		 <!-- <dependency>
+               <groupId>commons-dbcp</groupId>
+               <artifactId>commons-dbcp</artifactId>
+               <version>1.2.2</version>
+		</dependency> -->
+		<!-- OR -->
+		<!-- Apache DBCP2 CP -->
+		 <!-- <dependency>
+               <groupId>org.apache.commons</groupId>
+               <artifactId>commons-dbcp2</artifactId>
+		</dependency> -->
+		
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-xml -->
+		<dependency>
+		    <groupId>com.fasterxml.jackson.dataformat</groupId>
+		    <artifactId>jackson-dataformat-xml</artifactId>
+		</dependency>
+		
+		<!-- ################################################################################################################################################################### -->
+		
+		<!-- A In memory DB -->
+		<!-- <dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
+		</dependency> -->
+		<!-- A In memory DB -->
+		<!-- <dependency>
+			<groupId>org.hsqldb</groupId>
+			<artifactId>hsqldb</artifactId>
+			<scope>runtime</scope>
+		</dependency> -->
+		<!-- <dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency> -->
+		<!-- <dependency>
+			<groupId>com.oracle</groupId>
+			<artifactId>ojdbc8</artifactId>
+			<version>12.2.0</version>
+		</dependency> -->
+		
+		<!-- ################################################################################################################################################################### -->
+		
+		<!-- <dependency>
+		    <groupId>org.apache.commons</groupId>
+		    <artifactId>commons-lang3</artifactId>
+		</dependency> -->
+		
+		<!-- ################################################################################################################################################################### -->
+		<!-- Required for monitoring the app  -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+	
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-rest-hal-browser</artifactId>
+		</dependency>
+		
+		<!-- ################################################################################################################################################################### -->
+			<!-- <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-haetos</artifactId>
+		</dependency> -->
+		<!-- ################################################################################################################################################################### -->
+		<!-- <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-hateoas</artifactId>
+		</dependency> -->
+		
+		<!-- ################################################################################################################################################################### -->
+		<!-- <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency> -->
+		
+		<!-- ################################################################################################################################################################### -->
+		<!-- Required for cacheing -->
+		<!-- <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-cache</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>net.sf.ehcache</groupId>
+			<artifactId>ehcache</artifactId>
+		</dependency> -->
+		
+		<!-- ################################################################################################################################################################### -->
+		<!-- Required for unit testing  -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+		</dependency>
+		
+			<!-- ################################################################################################################################################################### -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+		</dependency>
+		
+		<!-- ################################################################################################################################################################### -->
+		<!-- 
+		For enabling swagger2 feature :
+		step-1 Added below 2 dependencies . 
+		step-2 Add Swagger2Config.java in com.springboot.config folder.
+		step-3 http://localhost:8081/v2/api-docs , http://localhost:8081/swagger-ui.html
+		-->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>2.6.1</version>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>2.6.1</version>
+		</dependency>
+		
+	<!-- ################################################################################################################################################################### -->
+	</dependencies>
+	<build>
+		<finalName>springboot-springREST-app</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-clean-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+			</plugin>
+			<!-- <plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+			</plugin> -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.2</version>
+				<executions>
+					<execution>
+					<id>coverage-initialize</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<!-- attached to Maven test phase -->
+					<execution>
+						<id>coverage-report</id>
+						<phase>post-integretion-test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>jacoco-check</id>
+						<goals>
+							<goal>check</goal>
+						</goals>
+						<configuration>
+						<excludes>
+						<exclude>
+						</exclude>
+						</excludes>
+							<rules>
+								<rule>
+									<element>PACKAGE</element>
+									<limits>
+										<limit>
+											<counter>LINE</counter>
+											<value>COVEREDRATIO</value>
+											<minimum>0.0</minimum>
+										</limit>
+									</limits>
+								</rule>
+							</rules>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- <plugin>
+				<groupId>org.sonarsource.scanner.maven</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
+			</plugin> -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
+				<version>${sonar-maven-plugin.version}</version>
+			</plugin>
+		</plugins>
+	</build>
+	<profiles>
+		<profile>
+            <id>sonar</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <sonar.host.url>http://localhost:9000</sonar.host.url>
+               <!--  <sonar.jdbc.driver>org.postgresql.Driver</sonar.jdbc.driver> 
+				<sonar.jdbc.password>admin</sonar.jdbc.password> 
+				<sonar.jdbc.url>jdbc:postgresql://localhost/sonar</sonar.jdbc.url> 
+				<sonar.jdbc.username>admin</sonar.jdbc.username>  -->
+            </properties>
+        </profile>
+	</profiles>
+</project>
